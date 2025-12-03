@@ -22,6 +22,9 @@ export default registerAs<AppConfig>('app', () => {
     nodeEnv: process.env.NODE_ENV || 'development',
     name: process.env.APP_NAME || 'app',
     workingDirectory: process.env.PWD || process.cwd(),
-    sendResultTo: process.env.RESULTS_SEND_TO || '',
+    watcherSendTo: process.env.WATCHER_SEND_TO || '',
+    watcherSleepMins: process.env.WATCHER_CHECK_MINS
+      ? Number.parseInt(process.env.WATCHER_CHECK_MINS)
+      : 10,
   };
 });

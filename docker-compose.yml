@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  tpl-watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tpl-watcher
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Optional: Mount logs directory if you want to persist logs
+      - ./logs:/usr/src/app/logs
+    # Uncomment if you need to expose ports (e.g., for API)
+    # ports:
+    #   - "3000:3000"
+    # Health check (optional)
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+

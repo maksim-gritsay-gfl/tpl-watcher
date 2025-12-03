@@ -16,9 +16,13 @@ export class AppService {
   ) {}
   async runWatcher(): Promise<string> {
     const mailData = {
-      to: this.configService.get('app.sendResultTo', { infer: true }),
+      to: this.configService.get('app.watcherSendTo', { infer: true }),
     };
-    this.logger.log(`INIT MAIL DATA ${JSON.stringify(mailData)}`);
+    const sleepMins = this.configService.get('app.watcherSleepMins', {
+      infer: true,
+    });
+    this.logger.log(`WATCHER INIT MAIL DATA ${JSON.stringify(mailData)}`);
+    this.logger.log(`WATCHER INIT CHECK PERIOD MINS ${sleepMins}`);
     while (true) {
       try {
         const isOffer = await this.tplCheckerService.checkOffer();

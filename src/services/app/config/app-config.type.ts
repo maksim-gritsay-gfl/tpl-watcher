@@ -2,5 +2,6 @@ export type AppConfig = {
   nodeEnv: string;
   name: string;
   workingDirectory: string;
-  sendResultTo: string;
+  watcherSendTo: string;
+  watcherSleepMins: number;
 };

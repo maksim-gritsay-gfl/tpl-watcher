@@ -39,6 +39,7 @@ Frontend (React, Next.js): -
 - [x] Send email on new offer
 - [x] Config Service ([@nestjs/config](https://www.npmjs.com/package/@nestjs/config))
 - [x] Docker
+- [x] Docker Compose support
 - [x] CLI
 - [x] Automated browser automation with Puppeteer
 - [x] Continuous monitoring (checks every 10 minutes)
@@ -87,7 +88,49 @@ The application requires the following environment variables:
 - `npm run build` - Build the application
 - `npm run lint` - Run ESLint
 
-## Docker install
+## Docker Installation
+
+### Using Docker Compose (Recommended)
+
+The easiest way to run the application is using Docker Compose:
+
+1. Ensure you have a `.env` file with all required configuration variables
+
+2. Rebuild and start the container:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+3. View logs:
+   ```bash
+   docker-compose logs -f
+   ```
+
+4. Stop the container:
+   ```bash
+   docker-compose down
+   ```
+
+#### Docker Compose Commands
+
+- `docker-compose up -d --build` - Rebuild image and start container in background
+- `docker-compose up -d` - Start container in background
+- `docker-compose down` - Stop and remove container
+- `docker-compose restart` - Restart container
+- `docker-compose logs -f` - View logs (follow mode)
+- `docker-compose ps` - Show container status
+
+#### Helper Script
+
+You can also use the provided helper script:
+```bash
+./docker-compose.scripts.sh rebuild  # Rebuild and start
+./docker-compose.scripts.sh up       # Start
+./docker-compose.scripts.sh down     # Stop
+./docker-compose.scripts.sh logs     # View logs
+```
+
+### Using Docker Directly
 
 1. Build the Docker image:
    ```bash
