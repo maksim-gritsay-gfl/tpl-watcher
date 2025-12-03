@@ -15,12 +15,15 @@ export class AppService {
     private readonly configService: ConfigService<AllConfigType>,
   ) {}
   async runWatcher(): Promise<string> {
+    const mailData = {
+      to: this.configService.get('app.sendResultTo', { infer: true }),
+    };
+    this.logger.log(`INIT MAIL DATA ${JSON.stringify(mailData)}`);
     while (true) {
       try {
         const isOffer = await this.tplCheckerService.checkOffer();
         this.logger.log(`Check result: ${isOffer ? 'OFFER' : 'NO OFFER'}`);
         if (isOffer) {
-          const mailData = { to: '' };
           try {
             await this.mailerService.sendMail({
               to: mailData.to,
