@@ -3,6 +3,7 @@ import { MailerService } from '../mailer/mailer.service';
 import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from '../app/config/config.type';
 import puppeteer from 'puppeteer';
+import { HistoryService } from '../history/history.service';
 
 @Injectable()
 export class TplCheckerService {
@@ -12,7 +13,10 @@ export class TplCheckerService {
     'https://epass-ca.quipugroup.net/?clientID=16&libraryID=1';
   private logger = new Logger('TplChecker');
 
-  constructor(private readonly configService: ConfigService<AllConfigType>) {
+  constructor(
+    private readonly configService: ConfigService<AllConfigType>,
+    private readonly historyService: HistoryService,
+  ) {
     this.tplUsername = configService.get('tpl.username', { infer: true }) || '';
     this.tplPin = configService.get('tpl.pin', { infer: true }) || '';
   }
