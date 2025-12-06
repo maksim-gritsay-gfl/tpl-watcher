@@ -15,12 +15,21 @@ export class AppService {
     private readonly configService: ConfigService<AllConfigType>,
   ) {}
   async runWatcher(): Promise<string> {
+    const mailData = {
+      to: this.configService.get('app.watcherSendTo', { infer: true }),
+    };
+    const sleepMins = this.configService.get('app.watcherSleepMins', {
+      infer: true,
+    });
+    this.logger.log(`WATCHER INIT MAIL DATA ${JSON.stringify(mailData)}`);
+    this.logger.log(`WATCHER INIT CHECK PERIOD MINS ${sleepMins}`);
     while (true) {
       try {
         const isOffer = await this.tplCheckerService.checkOffer();
         this.logger.log(`Check result: ${isOffer ? 'OFFER' : 'NO OFFER'}`);
         if (isOffer) {
           const mailData = { to: 'maxgritsay@gmail.com' };
+
           try {
             await this.mailerService.sendMail({
               to: mailData.to,
