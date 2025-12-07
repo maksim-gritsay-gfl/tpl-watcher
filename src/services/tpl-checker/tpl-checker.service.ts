@@ -90,6 +90,11 @@ export class TplCheckerService {
         } else {
           this.logger.log('NO OFFER');
         }
+        await this.historyService.add({
+          type: 'automatic',
+          message: '',
+          result: aquariumObj?.offers ? 'OFFER' : 'NO OFFER',
+        });
       }
       return false;
     } catch (error) {

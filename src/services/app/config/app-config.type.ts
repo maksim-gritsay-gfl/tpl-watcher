@@ -4,4 +4,11 @@ export type AppConfig = {
   workingDirectory: string;
   watcherSendTo: string;
   watcherSleepMins: number;
+
+  // frontendDomain?: string;
+  // backendDomain: string;
+  port: number;
+  apiPrefix: string;
+  fallbackLanguage: string;
+  headerLanguage: string;
 };

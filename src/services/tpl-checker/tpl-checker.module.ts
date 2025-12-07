@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MailerService } from '../mailer/mailer.service';
-import { TplCheckerService } from "./tpl-checker.service";
-import { ConfigModule } from "@nestjs/config";
-import { MailerModule } from "../mailer/mailer.module";
+import { TplCheckerService } from './tpl-checker.service';
+import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '../mailer/mailer.module';
+import { HistoryModule } from '../history/history.module';
 
 @Module({
-  imports: [ConfigModule, MailerModule],
+  imports: [ConfigModule, MailerModule, HistoryModule],
   providers: [TplCheckerService],
   exports: [TplCheckerService],
 })

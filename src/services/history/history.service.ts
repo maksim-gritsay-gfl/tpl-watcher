@@ -1,16 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { TplCheckerService } from '../tpl-checker/tpl-checker.service';
 import { HistoryEntryDto } from './dto';
+import { HistoryCreateDto } from './dto/history-create.dto';
+import { HistoryRepository } from './infrastructure/persistence/document/repositories/history.repository';
 
 @Injectable()
 export class HistoryService {
-  private historyData: HistoryEntryDto[] = [];
+  constructor(private readonly historyRepository: HistoryRepository) {}
 
-  add(history: HistoryEntryDto) {
-    this.historyData.push(history);
+  async add(history: HistoryCreateDto): Promise<HistoryEntryDto> {
+    return this.historyRepository.create(history);
   }
-  
-  getAll(): HistoryEntryDto[] {
-    return this.historyData;
+
+  async getAll(limit?: number): Promise<HistoryEntryDto[]> {
+    return this.historyRepository.findAll(limit);
+  }
+
+  async findById(id: string): Promise<HistoryEntryDto | null> {
+    return this.historyRepository.findById(id);
+  }
+
+  async count(): Promise<number> {
+    return this.historyRepository.count();
   }
 }
